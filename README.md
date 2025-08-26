@@ -67,7 +67,7 @@ Os dados dos produtos são persistidos em um banco relacional usando **Spring Da
 
 **🔹 Buscar produto por ID:**
 
-- GET localhost:8080/produtos/id
+- GET localhost:8080/produtos/{id}
 
 - Descrição: Retorna o produto com o ID informado.
 
@@ -132,7 +132,7 @@ Resposta (200 Ok):
 
 ---
 
-** 🔹 Deletar produto:**
+**🔹 Deletar produto:**
 
 - DELETE localhost:8080/produtos/{id}
 - Resposta: 204 No Content
