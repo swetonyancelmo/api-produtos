@@ -7,7 +7,7 @@ public record ProdutoRequestDTO(
         @NotBlank(message = "O nome não pode ser vazio.")
         String nome,
 
-        @NotNull(message = "O valor não pode ser nulo.")
+        @NotNull(message = "O preço é obrigatório.")
         @Positive(message = "O preço deve ser positivo")
         Double preco,
 
