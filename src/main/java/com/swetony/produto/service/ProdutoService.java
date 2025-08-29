@@ -1,11 +1,15 @@
 package com.swetony.produto.service;
 
+import com.swetony.produto.dto.ProdutoRequestDTO;
+import com.swetony.produto.dto.ProdutoResponseDTO;
 import com.swetony.produto.entity.Produto;
 import com.swetony.produto.repository.ProdutoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -13,27 +17,48 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
 
-    public Produto save(Produto produto){
-        return repository.save(produto);
+    public ProdutoResponseDTO save(ProdutoRequestDTO produtoDTO){
+        Produto produto = new Produto();
+        produto.setNome(produtoDTO.nome());
+        produto.setPreco(produtoDTO.preco());
+        produto.setQuantidade(produtoDTO.quantidade());
+        produto.setDescricao(produtoDTO.descricao());
+
+        Produto produtoSalvo = repository.save(produto);
+
+        return new ProdutoResponseDTO(produtoSalvo);
     }
 
-    public Produto updateById(Long id, Produto produto){
-        Produto existente = findById(id);
-        if(existente == null){
-            return null;
+    public ProdutoResponseDTO updateById(Long id, ProdutoRequestDTO produtoDTO){
+        Produto produtoExistente = repository.findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException("Produto com o ID: " + id + " não encontrado " +
+                                "para atualização"));
+
+        produtoExistente.setNome(produtoDTO.nome());
+        produtoExistente.setPreco(produtoDTO.preco());
+        produtoExistente.setQuantidade(produtoDTO.quantidade());
+        produtoExistente.setDescricao(produtoDTO.descricao());
+
+        Produto produtoAtualizado = repository.save(produtoExistente);
+
+        return new ProdutoResponseDTO(produtoAtualizado);
+    }
+
+    public ProdutoResponseDTO findById(Long id){
+        Optional<Produto> produtoOpt = repository.findById(id);
+
+        if(produtoOpt.isEmpty()){
+            throw new EntityNotFoundException("Produto com o id: " + id + " não foi encontrado.");
         }
-        existente.setNome(produto.getNome());
-        existente.setPreco(produto.getPreco());
-        existente.setDescricao(produto.getDescricao());
-        return repository.save(existente);
+
+        return new ProdutoResponseDTO(produtoOpt.get());
     }
 
-    public Produto findById(Long id){
-        return repository.findById(id).orElse(null);
-    }
-
-    public List<Produto> findAll(){
-        return repository.findAll();
+    public List<ProdutoResponseDTO> findAll(){
+        return repository.findAll()
+                .stream()
+                .map(ProdutoResponseDTO::new)
+                .toList();
     }
 
     public void deleteById(Long id){
