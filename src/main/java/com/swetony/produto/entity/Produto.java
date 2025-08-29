@@ -1,13 +1,7 @@
 package com.swetony.produto.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Produto {
@@ -16,16 +10,16 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome é obrigatório")
-    @Size(min = 2, max = 100, message = "O nome de ter entre 2 e 100 caracteres")
+    @Column(nullable = false)
     private String nome;
 
-    @NotNull(message = "O preço é obrigatório")
-    @Positive(message = "O preço deve ser positivo")
+    @Column(name = "preco",nullable = false)
     private Double preco;
 
-    @Size(max = 255, message = "A descrição deve ter até 255 caracteres")
     private String descricao;
+
+    @Column(nullable = false)
+    private Integer quantidade;
 
     public Long getId() {
         return id;
@@ -57,5 +51,13 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 }
