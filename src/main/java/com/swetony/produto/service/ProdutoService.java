@@ -1,7 +1,7 @@
-package com.swetony.estoque.service;
+package com.swetony.produto.service;
 
-import com.swetony.estoque.entity.Produto;
-import com.swetony.estoque.repository.ProdutoRepository;
+import com.swetony.produto.entity.Produto;
+import com.swetony.produto.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

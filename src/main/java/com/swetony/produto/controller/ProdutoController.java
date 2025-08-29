@@ -1,7 +1,7 @@
-package com.swetony.estoque.controller;
+package com.swetony.produto.controller;
 
-import com.swetony.estoque.entity.Produto;
-import com.swetony.estoque.service.ProdutoService;
+import com.swetony.produto.entity.Produto;
+import com.swetony.produto.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

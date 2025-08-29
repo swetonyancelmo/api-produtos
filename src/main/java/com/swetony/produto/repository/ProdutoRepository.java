@@ -1,6 +1,6 @@
-package com.swetony.estoque.repository;
+package com.swetony.produto.repository;
 
-import com.swetony.estoque.entity.Produto;
+import com.swetony.produto.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

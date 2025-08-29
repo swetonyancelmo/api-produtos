@@ -1,4 +1,4 @@
-package com.swetony.estoque.entity;
+package com.swetony.produto.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
